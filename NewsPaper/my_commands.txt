@@ -1,0 +1,75 @@
+>>> from news.models import *
+>>> User1 = User.objects.create_user('Artem Borisenko')
+>>> User2 = User.objects.create_user('Anna Rojkova')
+
+>>> Author1 = Author.objects.create(user=User1)
+>>> Author2 = Author.objects.create(user=User2)
+
+>>> Category1 = Category.objects.create(name='IT')
+>>> Category2 = Category.objects.create(name='Beauty')
+>>> Category3 = Category.objects.create(name='Fight')
+>>> Category4 = Category.objects.create(name='Life Hacks')
+
+>>> Post1 = Post.objects.create(author=Author1, is_article=True, heading='Джанго за 1 час!!!',
+    content='https://www.youtube.com/watch?v=w4nrT7emiVc')
+>>> Post2 = Post.objects.create(author=Author2, is_article=True, heading='Как накрасить глаза?', content='https://www.youtube.com/watch?v=txydR4Yv4-4')
+>>> Post3 = Post.objects.create(author=Author2, is_article=False, heading='Джастин Гэйджи жёстко ответил Чарльзу Оливейре на выпад', content='https://www.youtube.com/watch?v=rwhsT_2KPK0')
+
+>>> Comment1 = Comment.objects.create(post=Post1, user=User1, text='Спасибо за ссылку, давно искал это видео!')
+>>> Comment2 = Comment.objects.create(post=Post2, user=User2, text='Ну все, сегодня на корпоративе буду точно самая красивая, ахах =DDD')
+>>> Comment3 = Comment.objects.create(post=Post3, user=User1, text='Не похоже на Чарльза, он обычно спокоен как удав...')
+>>> Comment4 = Comment.objects.create(post=Post3, user=User2, text='Ответить он то ответил, но войны в твиттере не то же самое что в октагоне =DD')
+
+>>> Comment1.like()
+>>> Comment1.like()
+>>> Comment1.like()
+>>> Comment1.like()
+>>> Comment1.like()
+>>> Comment1.like()
+>>> Comment1.dislike()
+>>> Comment2.like()
+>>> Comment2.like()
+>>> Comment2.like()
+>>> Comment3.like()
+>>> Comment4.like()
+>>> Comment4.like()
+>>> Comment4.like()
+>>> Comment4.dislike()
+>>> Comment4.dislike()
+>>> Comment3.dislike()
+>>> Post1.like()
+>>> Post1.like()
+>>> Post1.like()
+>>> Post1.dislike()
+>>> Post2.dislike()
+>>> Post2.dislike()
+>>> Post2.like()
+>>> Post3.like()
+>>> Post3.dislike()
+>>> Post3.dislike()
+>>> Post3.dislike()
+>>> Post3.dislike()
+>>> Post3.dislike()
+>>> Post3.dislike()
+
+>>> Author1.update_rating()
+>>> Author2.update_rating()
+
+>>> Favorite = Author.objects.order_by('-rating')
+>>> Favorite[0].user.username
+
+>>> BestPost = Post.objects.order_by('-rating')[0]
+>>> Result = [BestPost.add_time.strftime('%m.%d.%Y'), BestPost.author.user, BestPost.heading, BestPost.preview()]
+>>> Result
+
+>>> CommentsPost = Comment.objects.filter(post=BestPost)
+>>> for _ in CommentsPost:
+...     res = [_.text_add.strftime('%m.%d.%Y'), _.user.username, _.rating, _.text]
+...     res
+
+
+
+
+
+
+
