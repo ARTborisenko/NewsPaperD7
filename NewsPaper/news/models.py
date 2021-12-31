@@ -45,6 +45,9 @@ class Post(models.Model):
         preview_content = str(self.content[0:123] + '...')
         return preview_content
 
+    def __str__(self):
+        return f'{self.heading}: {self.content[0:20]} ...'
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
