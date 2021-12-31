@@ -5,7 +5,7 @@ from django.db.models import Sum
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0, verbose_name='Рейтинг')
 
     def update_rating(self):
         post_ratings = self.post_set.aggregate(post_values=Sum('rating'))
@@ -19,22 +19,33 @@ class Author(models.Model):
         self.rating = posts_rating * 3 + comments_rating
         self.save()
 
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128, unique=True, verbose_name='Наименование')
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
 
 class Post(models.Model):
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category, through='PostCategory')
-    is_article = models.BooleanField(default=True)
-    heading = models.CharField(max_length=128, default='Статья без названия')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор')
+    category = models.ManyToManyField(Category, through='PostCategory', verbose_name='Категория')
+    is_article = models.BooleanField(default=True, verbose_name='Статья - да, Новость - нет')
+    heading = models.CharField(max_length=128, default='Статья без названия', verbose_name='Заголовок')
     add_time = models.DateTimeField(auto_now_add=True)
-    content = models.TextField(default='Статья без контента')
-    rating = models.IntegerField(default=0)
+    content = models.TextField(default='Статья без контента', verbose_name='Контент')
+    rating = models.IntegerField(default=0, verbose_name='Рейтинг')
 
     def like(self):
         self.rating += 1
@@ -51,6 +62,10 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.heading}: {self.content[0:20]} ...'
 
+    class Meta:
+        verbose_name = 'Публикация'
+        verbose_name_plural = 'Публикации'
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -60,7 +75,7 @@ class PostCategory(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.TextField(verbose_name='Текст комментария')
     text_add = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
 
@@ -71,4 +86,12 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+    def __str__(self):
+        return self.text[0:80]
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ['-text_add']
 
