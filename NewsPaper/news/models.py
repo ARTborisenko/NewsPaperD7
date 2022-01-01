@@ -20,7 +20,7 @@ class Author(models.Model):
         self.save()
 
     def __str__(self):
-        return self.user.username
+        return '{}'.format(self.user.username)
 
     class Meta:
         verbose_name = 'Автор'
@@ -31,7 +31,7 @@ class Category(models.Model):
     name = models.CharField(max_length=128, unique=True, verbose_name='Наименование')
 
     def __str__(self):
-        return self.name
+        return '{}'.format(self.name)
 
     class Meta:
         verbose_name = 'Категория'
@@ -60,7 +60,7 @@ class Post(models.Model):
         return preview_content
 
     def __str__(self):
-        return f'{self.heading}: {self.content[0:20]} ...'
+        return '{}'.format(f'{self.heading}: {self.content[0:20]} ...')
 
     class Meta:
         verbose_name = 'Публикация'
@@ -88,7 +88,7 @@ class Comment(models.Model):
         self.save()
 
     def __str__(self):
-        return self.text[0:80]
+        return '{}'.format(self.text[0:80])
 
     class Meta:
         verbose_name = 'Комментарий'
