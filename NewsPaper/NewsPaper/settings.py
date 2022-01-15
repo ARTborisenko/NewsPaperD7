@@ -40,10 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'news',
-    'accounts',
-    'django.contrib.sites',
-    'django.contrib.flatpages',
-    'fpages',
+    'django_filters',
+    'templates',
 ]
 
 SITE_ID = 1
@@ -56,8 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPaper.urls'
@@ -65,7 +61,7 @@ ROOT_URLCONF = 'NewsPaper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/news')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

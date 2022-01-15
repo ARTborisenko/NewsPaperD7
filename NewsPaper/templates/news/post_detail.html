@@ -1,0 +1,52 @@
+{% extends 'default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+    News
+{% endblock title %}
+
+{% block content %}
+    {% if news.is_article %}
+        <h1>* Статья № {{ news.id }} *</h1>
+    {% else %}
+        <h1>* Новость № {{ news.id }} *</h1>
+    {% endif %}
+    <hr>
+    <table>
+        <tr>
+            <td>
+                Автор: {{news.author.user}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Категория:
+                {%for category in news.category.all%}
+                    {{ category.name }}
+                {%endfor%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Заголовок: {{news.heading|censor:True}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Контент: {{news.content|censor:True}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Рейтинг статьи: {{news.rating}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Дата публикации: {{news.add_time|date:'d-M-Y H:i'}}
+            </td>
+        </tr>
+    </table>
+
+{% endblock content %}
