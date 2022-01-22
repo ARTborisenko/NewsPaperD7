@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import NewsList, PostDetailView, SearchNews, PostCreateView, PostUpdateView, PostDeleteView
+from .views import *
 
 urlpatterns = [
     path('', NewsList.as_view()),

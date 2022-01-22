@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Page
+{% endblock title %}
+
+{% block content %}
+<hr>
+{% if request.user.username == form.username.value %}
+<h3>Информация о пользователе  {{ request.user.username }}</h3>
+<hr>
+<form method="POST">
+    {% csrf_token %}
+            <table>
+            <tr>
+                <td>
+                    Username
+                </td>
+                <td>
+                    Имя
+                </td>
+                <td>
+                    Фамилия
+                </td>
+                <td>
+                    Почта
+                </td>
+            </tr>
+            <tr>
+                    {% for f in form %}
+                <td>
+                        {{ f }}
+                </td>
+                    {% endfor %}
+            </tr>
+        </table>
+    <input type="submit" value="Изменить данные">
+</form>
+{% else %}
+<h3> Пользователь не найден... </h3>
+{% endif %}
+
+{% if is_not_author %}
+<button> <a href="upgrade">Стать автором!</a></button>
+{% endif %}
+
+{% endblock content %}
