@@ -1,8 +1,23 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Category
 from .filters import PostsFilter
 from .forms import PostForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
+
+@login_required
+def subscribe_category(request, pk):
+    if request.user not in Category.objects.get(pk=pk).subscribers.all():
+        Category.objects.get(pk=pk).subscribers.add(request.user)
+    return redirect(f'/news/')
+
+@login_required
+def unsubscribe_category(request, pk):
+    if request.user in Category.objects.get(pk=pk).subscribers.all():
+        Category.objects.get(pk=pk).subscribers.remove(request.user)
+    return redirect(f'/news/')
 
 
 class NewsList(ListView):
@@ -35,6 +50,11 @@ class PostDetailView(DetailView):
     template_name = 'news/post_detail.html'
     queryset = Post.objects.all()
     context_object_name = 'news'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['not_signed'] = self.request.user
+        return context
 
 
 class PostCreateView(PermissionRequiredMixin, CreateView):

@@ -8,4 +8,6 @@ urlpatterns = [
     path('create/<int:pk>', PostUpdateView.as_view(), name='post_update'),
     path('delete/<int:pk>', PostDeleteView.as_view(), name='post_delete'),
     path('search/', SearchNews.as_view()),
+    path('subscribe/<int:pk>', subscribe_category, name='subscribe'),
+    path('unsubscribe/<int:pk>', unsubscribe_category, name='unsubscribe'),
 ]

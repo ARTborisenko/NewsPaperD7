@@ -23,7 +23,12 @@
             <td>
                 Категория:
                 {%for category in news.category.all%}
-                    {{ category.name }}
+                {{ category.name }}
+                {% if request.user not in category.subscribers.all %}
+                    <button> <a href="{% url 'subscribe' category.id %}">Подписаться!</a></button>
+                {% else %}
+                    <button> <a href="{% url 'unsubscribe' category.id %}">Отписаться!</a></button>
+                {% endif %}
                 {%endfor%}
             </td>
         </tr>

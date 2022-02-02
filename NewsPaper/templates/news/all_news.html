@@ -7,9 +7,11 @@ All News
 {% endblock title %}
 
 {% block content %}
-    <h1>Все новости</h1>
-    <h2> Количество новостей:  {{ all_news|length }} </h2>
+
+    <h1><p style="text-align: center;">Все новости</p></h1>
+    <h2><p style="text-align: center;">Количество новостей:  {{ all_news|length }} </p></h2>
     <hr>
+
     {% if all_news %}
         <table>
             <tr>
