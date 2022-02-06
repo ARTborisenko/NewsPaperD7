@@ -1,5 +1,6 @@
 import logging
 from django.conf import settings
+import datetime
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -15,7 +16,10 @@ logger = logging.getLogger(__name__)
 def my_job():
     all_category_pk = []
     subs_cat_email = {}
-    cash = []
+    date_now = datetime.datetime.now()
+    week = datetime.timedelta(days=7)
+    date_a_week_ago = date_now - week
+    list = {}
     email_list = []
     for category in Category.objects.all():
         all_category_pk.append(category.pk)
@@ -25,10 +29,15 @@ def my_job():
                 subs_cat_email[user.email] = [pk]
             else:
                 subs_cat_email[user.email].append(pk)
-    #print(subs_cat_email)
-    for post in Post.objects.all():
-        for cat in post.category.all():
-            print(cat.pk)
+    print(subs_cat_email)
+    for post in Post.objects.filter(add_time__gte=date_a_week_ago):
+        for category in post.category.all():
+            cat_pk = category.pk
+            if cat_pk not in list.keys():
+                list[cat_pk] = [post.pk]
+            else:
+                list[cat_pk].append(post.pk)
+    print(list)
 
 
 # функция, которая будет удалять неактуальные задачи
