@@ -1,0 +1,17 @@
+1) Ставим Redis через PIP:
+    pip3 install redis
+    pip3 install -U "celery[redis]"
+2) Регаемся на redis.io и создаем базу данных. Получаем данные для подключения.
+3) Добавляем в settings:
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    Либо для облака:
+        CELERY_BROKER_URL = 'redis://:HN9N5bcbn1FcKeQ3i09VAvfxeD9yUAnl@redis-12469.c279.us-central1-1.gce.cloud.redislabs.com:12469'
+        CELERY_RESULT_BACKEND = 'redis://:HN9N5bcbn1FcKeQ3i09VAvfxeD9yUAnl@redis-12469.c279.us-central1-1.gce.cloud.redislabs.com:12469'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+4) Запускаем команду:
+    celery -A NewsPaper worker -l INFO
+
+

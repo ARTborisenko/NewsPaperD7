@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django.contrib.sites',
-
+    'celery',
     'django_apscheduler',
 ]
 
@@ -177,3 +177,9 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru'
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+CELERY_BROKER_URL = 'redis://:HN9N5bcbn1FcKeQ3i09VAvfxeD9yUAnl@redis-12469.c279.us-central1-1.gce.cloud.redislabs.com:12469'
+CELERY_RESULT_BACKEND = 'redis://:HN9N5bcbn1FcKeQ3i09VAvfxeD9yUAnl@redis-12469.c279.us-central1-1.gce.cloud.redislabs.com:12469'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

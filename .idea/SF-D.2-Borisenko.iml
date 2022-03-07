@@ -4,11 +4,13 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (SF-D.5-NewsPaper-Borisenko)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (D7)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SF-D.2-MyProject-Borisenko" />
     <orderEntry type="module" module-name="SF-D.1.6-Borisenko" />
     <orderEntry type="module" module-name="D5" />
     <orderEntry type="module" module-name="D61" />
+    <orderEntry type="module" module-name="Рабочий стол" />
+    <orderEntry type="module" module-name="SF_NewsPaper" />
   </component>
 </module>

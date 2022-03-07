@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('', NewsList.as_view()),
+    path('celery/', IndexView.as_view()),
     path('<int:pk>', PostDetailView.as_view(), name='post_detail'),
     path('create/', PostCreateView.as_view(), name='post_create'),
     path('create/<int:pk>', PostUpdateView.as_view(), name='post_update'),

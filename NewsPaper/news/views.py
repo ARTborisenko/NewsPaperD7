@@ -6,6 +6,16 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
+from django.http import HttpResponse
+from django.views import View
+from .tasks import hello
+
+
+class IndexView(View):
+    def get(self, request):
+        hello.delay()
+        return HttpResponse('Hello!')
+
 
 @login_required
 def subscribe_category(request, pk):

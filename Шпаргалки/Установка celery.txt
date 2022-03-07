@@ -1,0 +1,12 @@
+Установка celery:
+1) Ставим через PIP
+2) Добавляем файл celery рядом с settings:
+    import os
+    from celery import Celery
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'newspaper.settings')
+    app = Celery('news')
+    app.config_from_object('django.conf:settings', namespace='CELERY')
+    app.autodiscover_tasks()
+3) Прописываем в __init__.py
+    from .celery import app as celery_app
+    __all__ = ('celery_app',)
